@@ -1,15 +1,19 @@
 import express from 'express';
 import morgan from 'morgan';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cors from 'cors'
+import mongoose from 'mongoose';
+import connectCloudinary from './config/cloudinary.js'
+
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
+connectCloudinary
 
 // ===== Connect to DB ===== //
 try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(`${process.env.MONGODB_URI}/Apoointment Tracker`);
     console.log(`Connected to mongodb`);
 } catch (error) {
     console.error(error);  
@@ -17,6 +21,7 @@ try {
 
 // ===== Middlewares ===== //
 app.use(morgan('dev')); // logger
+app.use(cors())
 app.use(express.json()); // parse data to the body
 app.use(express.urlencoded({extended: true}));
 
@@ -27,6 +32,9 @@ app.get('/', (req, res) => {
     res.send('Welcome to my project!')
 });
 
+//Add new doctor
+
+
 // ===== Error Middlewares ===== //
 app.use((e, req, res, next) => {
     console.error(e);
@@ -35,3 +43,4 @@ app.use((e, req, res, next) => {
 
 
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
+
