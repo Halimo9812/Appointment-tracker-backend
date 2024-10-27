@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors'
 import mongoose from 'mongoose';
 import connectCloudinary from './config/cloudinary.js'
+import adminRouter from './routes/adminRoute.js';
 
 
 dotenv.config();
@@ -34,7 +35,7 @@ app.get('/', (req, res) => {
 
 //Add new doctor
 
-
+app.use('/api/admin',adminRouter)
 // ===== Error Middlewares ===== //
 app.use((e, req, res, next) => {
     console.error(e);
