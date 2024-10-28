@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 //Add new doctor
 
 app.use('/api/admin',adminRouter)
+app.use ('/api/user', user)
 // ===== Error Middlewares ===== //
 app.use((e, req, res, next) => {
     console.error(e);
